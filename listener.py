@@ -16,8 +16,9 @@ guardians = {}
 @bot.event
 async def on_ready():
     print('+------>')
-    print("|" +'Logged in as: ')
-    print("|" +bot.user.name)
+    
+    print(Logged in as: ')
+    print(bot.user.name)
     print('+------>')
 
 @bot.command()
