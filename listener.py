@@ -123,6 +123,6 @@ async def on_member_join(member):
     await bot.add_roles(member, role)
 
 
-bot.run('Mzc3MTIyODAyNzMxNDUwMzcw.DOIWgA.ea9uhamsH6yDtAJh2eVJaLT9BRo')
+bot.run('token')
 
 
