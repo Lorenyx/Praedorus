@@ -39,11 +39,11 @@ is the in game power level and can be shown as
 
 NOTE: Nothing yet."""
     if (name == None) | (light == None):
-        bot.say("Stuff")
+        await bot.say("Stuff")
         return
     else:
         guardians[str(name)] = light
-        bot.say("...roster updated...")
+        await bot.say("...roster updated...")
 
 @bot.command()
 async def roster(*options):
@@ -52,9 +52,9 @@ async def roster(*options):
         try:
             if options[0] == "remove":
                 del guardians[options[1]]
-                bot.say("...{} removed...".format(options[1]))
+                await bot.say("...{} removed...".format(options[1]))
         except IndexError:
-            bot.say("...missing variables...")
+            await bot.say("...missing variables...")
             return
 
     else:
@@ -62,9 +62,9 @@ async def roster(*options):
             result = ""
             for pc in guardians:
                 result += "{:<14}{:>6}".format(pc, guardians[pc]) + "\n"
-            bot.say("{:<15}\n**```\n{}\n```**".format("__**The Fireteam**__", result))
+            await bot.say("{:<15}\n**```\n{}\n```**".format("__**The Fireteam**__", result))
         else:
-            bot.say("...roster empty...")
+            await bot.say("...roster empty...")
 
 @bot.command()
 async def roll(dice : str):
