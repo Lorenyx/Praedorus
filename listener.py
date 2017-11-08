@@ -16,9 +16,8 @@ guardians = {}
 @bot.event
 async def on_ready():
     print('+------>')
-    
-    print(Logged in as: ')
-    print(bot.user.name)
+    print("|" +'Logged in as: ')
+    print("|" +bot.user.name)
     print('+------>')
 
 @bot.command()
@@ -29,10 +28,8 @@ async def add(left : int, right : int):
 guardians = {}
 
 @bot.command()
-async def fireteam(name=None, light=None, pclass=None): #pclass is player's class, shortened for simplicity
-    """$[fireteam] [name][light level][character class]
-
-Adds a guardian to a \**Fireteam\** roster.
+async def fireteam(name=None, light=None): #pclass is player's class, shortened for simplicity
+    """Adds a guardian to a \**Fireteam\** roster.
 
 All fields are required for command. The variable
 'name' is your Guardian's in game name, 'light level'
@@ -41,26 +38,32 @@ is the in game power level and can be shown as
 +240 (above 240 power), +270, or +300.
 
 NOTE: Nothing yet."""
-    if (name == None) | (light == None) | (pclass == None):
+    if (name == None) | (light == None):
         bot.say("Stuff")
         return
     else:
-        guardians[str(name)] = (light, pclass)
+        guardians[str(name)] = light
         bot.say("...roster updated...")
 
 @bot.command()
-async def roster(*options : tuple):
+async def roster(*options):
     """Shows Guardians in current fireteam"""
-    if options is  None:
-        result = ""
-        for pc in guardians:
-            result += "{:<14}{:>6}  {:<10}".format(pc, guardians[pc][0], guardians[pc][1]) + "\n"
-        bot.say("{:<15}\n**```\n{}\n```**".format("__**The Fireteam**__", result))
+    if options:
+        try:
+            if options[0] == "remove":
+                del guardians[options[1]]
+                bot.say("...{} removed...".format(options[1]))
+        except IndexError:
+            bot.say("...missing variables...")
+            return
+
     else:
-        if options == 'remove':
-            del guardians[options[1]]
-            bot.say("...left fireteam...")
-        if len(guardians) < 1:
+        if len(guardians) > 0:
+            result = ""
+            for pc in guardians:
+                result += "{:<14}{:>6}".format(pc, guardians[pc]) + "\n"
+            bot.say("{:<15}\n**```\n{}\n```**".format("__**The Fireteam**__", result))
+        else:
             bot.say("...roster empty...")
 
 @bot.command()
@@ -120,6 +123,6 @@ async def on_member_join(member):
     await bot.add_roles(member, role)
 
 
-bot.run('tolen')
+bot.run('Mzc3MTIyODAyNzMxNDUwMzcw.DOIWgA.ea9uhamsH6yDtAJh2eVJaLT9BRo')
 
 
